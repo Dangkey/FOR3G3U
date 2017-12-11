@@ -53,12 +53,12 @@ class DiceThrower:
 
 # Ãžetta fall "teiknar" aÃ°alvalmynd leiksins og skilar niÃ°urstÃ¶Ã°u sem true/false
 def main_menu():
-    print '------------------------------------------------'
-    print '1: New game'
-    print '2: Quit'
-    print '------------------------------------------------'
+    print('------------------------------------------------')
+    print('1: New game')
+    print('2: Quit')
+    print('------------------------------------------------')
 
-    user_input = int(raw_input('Enter your choice(1/2)please: '))
+    user_input = int(input('Enter your choice(1/2)please: '))
 
     if user_input == 1:
         return True # spilarinn vill spila leik
@@ -78,18 +78,18 @@ def dice_menu(dice_thrower):
         number_of_throws += 1               # Ekki mÃ¡ kasta oftar en 3svar og Ã¾vÃ­ Ã¾arf aÃ° fylgjast meÃ° fjÃ¶lda kasta
         rethrowing_allowed = True           # Spilarinn mÃ¡ bara kasta 2svar og Ã¾aÃ° Ã¾arf aÃ° stoppa hann eftir Ã¾aÃ°.
 
-        print '------------------------------------------------'
-        print user_dice     # Prentar teningana Ãºt.
-        print '------------------------------------------------'
+        print ('------------------------------------------------')
+        print (user_dice  )   # Prentar teningana Ãºt.
+        print ('------------------------------------------------')
 
         while rethrowing_allowed:
             # ÃžaÃ° Ã¾arf aÃ° spyrja spilarann hvort hann vilji endurkasta einhverjum teningum
             # SÃº staÃ°a getur komiÃ° upp aÃ° notandinn Ã¾urfi Ã¾ess ekki(t.d. yatzy Ã­ fyrsta kasti)
-            rethrow = raw_input('Do you want to Rethrow? Y/N: ')
+            rethrow = input('Do you want to Rethrow? Y/N: ')
             if rethrow == 'Y':
                 # indexinn Ã¡ Ã¾eim teningum sem kasta skal er fengiÃ° frÃ¡ spilaranum sem text
                 # testa strengnum er svo breytt Ã­ lista af indexum
-                s = raw_input("Enter the dices you want to rethrow(0 - 4) space between please: ")
+                s = input("Enter the dices you want to rethrow(0 - 4) space between please: ")
                 dice = s.split()
                 rethrow_dice = [eval(x) for x in dice]
 
@@ -97,9 +97,9 @@ def dice_menu(dice_thrower):
                 user_dice = dice_thrower.rethrow(rethrow_dice)
                 number_of_throws += 1
 
-                print '------------------------------------------------'
-                print user_dice     # prentar teningana Ãºt aftur
-                print '------------------------------------------------'
+                print ('------------------------------------------------')
+                print (user_dice)    # prentar teningana Ãºt aftur
+                print ('------------------------------------------------')
             else:
                 rethrowing_allowed = False  # Keyrt ef notandinn Ã¾arf ekki aÃ° kasta miera
 
@@ -120,17 +120,17 @@ def dice_menu(dice_thrower):
 # Ã Ã¾essu demÃ³i getur spilarinn sett summuna hvar sem er :-(
 def sheet_menu(dice,yatzy_sheet):
     print_sheet(yatzy_sheet)
-    user_input = int(raw_input('Enter your choice(0 - 4)please: '))
+    user_input = int(input('Enter your choice(0 - 4)please: '))
     yatzy_sheet[user_input] = sum(dice)
     print_sheet(yatzy_sheet)
 
 
 # Ãžetta fall prentar Ãºt yatzy-blaÃ°iÃ° og er notaÃ° af fallinu sheet_menu(). SjÃ¡ t.d. lÃ­nu 123 og 126
 def print_sheet(yatzy_sheet):
-    print '------------------------------------------------'
-    print '0: Small Row', yatzy_sheet[0]
-    print '1: Big Row',  yatzy_sheet[1]
-    print '2: Full House', yatzy_sheet[2]
-    print '3: Chance',  yatzy_sheet[3]
-    print '4: Yatzy',  yatzy_sheet[4]
-    print '------------------------------------------------'
+    print('------------------------------------------------')
+    print('0: Small Row', yatzy_sheet[0])
+    print('1: Big Row',  yatzy_sheet[1])
+    print('2: Full House', yatzy_sheet[2])
+    print('3: Chance',  yatzy_sheet[3])
+    print('4: Yatzy',  yatzy_sheet[4])
+    print('------------------------------------------------')
