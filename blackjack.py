@@ -49,7 +49,7 @@ class Hand(object):
         self.hiddencard = []
 
     def value(self):
-        "Samtalið af því sem þú drógst"
+        #Samtalið af því sem þú drógst
         handvalue = 0
         for card in sorted(self.cards, reverse=True):
             rank = card % 13
@@ -64,12 +64,12 @@ class Hand(object):
 
 # Define auxiliary functions
 def draw_card():
-    "Dregur random spil"
+    #Dregur random spil
     return random.randrange(0, 52)
 
 
 def draw_initial_hands(dealerholecard=False):
-    "Dregur spilinn fyrir dealer og fyrstu 2 cards hjá player"
+    #Dregur spilinn fyrir dealer og fyrstu 2 cards hjá player
     return Hand(holecard=dealerholecard), Hand()
 
 

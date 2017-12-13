@@ -5,18 +5,22 @@ import random
 
 class SpaceInvaders:
     def __init__(self):
-
+        #gefur playerinum 3 líf
         self.hp = 3
+        #kveikir á pygame
         pygame.font.init()
+        #Býr til fontið
         self.font = pygame.font.Font("pics/space_invaders.ttf", 15)
 
-
+        #Setur stærðina á skjánum
         self.screen = pygame.display.set_mode((800, 600))
+        #loadar inn enemy sprites
         self.enemySprites = {
                 0:[pygame.image.load("pics/enemy.png").convert(), pygame.image.load("pics/enemy2.png").convert()],
                 1:[pygame.image.load("pics/enemy.png").convert(), pygame.image.load("pics/enemy2.png").convert()],
                 2:[pygame.image.load("pics/enemy.png").convert(), pygame.image.load("pics/enemy2.png").convert()],
                 }
+        #loadar inn player sprite
         self.player = pygame.image.load("pics/player.png").convert()
         self.animation = 0 #skipt á milli tveggja myndana
         self.direction = 1 #átt
@@ -45,21 +49,21 @@ class SpaceInvaders:
         space = 10
 
 
-    def enemyUpdate(self):
+    def enemyUpdate(self):#function sem updatar enemies þannig að þeir hreyfist og skjóti
         if not self.geimveruHraði:
             for enemy in self.enemies:
                 for enemy in enemy:
                     enemy = enemy[1]
                     if enemy.colliderect(pygame.Rect(self.playerX, self.playerY, self.player.get_width(), self.player.get_height())): #Finnur collision, ef þú ert skotinn missiru 1 live
                         self.hp -= 1
-                        self.resetPlayer()
+                        self.resetPlayer()#setur player á upphafsstöðu
                     enemy.x += self.geimveruHreyfing * self.direction #fer til hægri/vinstri
                     self.geimveruHraði = 20
                     if enemy.x >= 750 or enemy.x <= 0: #Þegar þau komast á endan til hægri/vinstri fara þau niður
                         self.moveEnemiesDown()
                         self.direction *= -1
-                    
-                    skotloc = random.randint(0, 1000) #Notað til þess að skot koma frá geimveronum ekki bara á random stað
+
+                    skotloc = random.randint(0, 1000) #Notað til þess að skot koma frá geimverunum ekki bara á random stað
                     if skotloc > self.skotloc:
                         self.skotlist.append(pygame.Rect(enemy.x, enemy.y, 10, 20))
 
@@ -69,15 +73,15 @@ class SpaceInvaders:
                 self.animation += 1
         else:
             self.geimveruHraði -= 1
-    
-        
+
+
     def moveEnemiesDown(self):
         for enemy in self.enemies:
             for enemy in enemy:
                 enemy = enemy[1]
                 enemy.y += 20
 
-    "Controls fyrir skipið"
+    #Controls fyrir skipið
     def playerUpdate(self):
         key = pygame.key.get_pressed()
         if key[K_RIGHT] and self.playerX < 800 - self.player.get_width():
@@ -86,7 +90,7 @@ class SpaceInvaders:
             self.playerX -= 5
         if key[K_SPACE] and not self.skot:
             self.skot = pygame.Rect(self.playerX + self.player.get_width() / 2, self.playerY - 15, 5, 10)
-    "Þetta er notað þegar einhver deir, að þeir myndu hætta að skjóta, fann á google"
+    #Þetta er notað þegar einhver deir, að þeir myndu hætta að skjóta, fann á google
     def skotUpdate(self):
         for i, enemy in enumerate(self.enemies):
             for j, enemy in enumerate(enemy):
@@ -96,13 +100,13 @@ class SpaceInvaders:
                     self.skot = None
                     self.skotloc -= 1
 
-        "Hraðinn á skotinu í byssuni"
+        #Hraðinn á skotinu í byssuni
         if self.skot:
             self.skot.y -= 10
             if self.skot.y < 0:
                 self.skot = None
 
-        "Byssuhraði invadera, og að hp myndi fara niður um einn ef collide"
+        #Byssuhraði invadera, og að hp myndi fara niður um einn ef collide
         for x in self.skotlist:
             x.y += 10
             if x.y > 600:
@@ -113,20 +117,21 @@ class SpaceInvaders:
                 self.resetPlayer()
 
 
-    "Þegar hann missir Live, fer hann aftur í miðju"
+    #Þegar hann missir Live, fer hann aftur í miðju
     def resetPlayer(self):
         self.playerX = 400
-    "Meðan prógramið er í gangi, clock til þess að leikurinn væri á réttum hraða, hérna þurfti ég smá hjálp í google"
+    #Meðan prógramið er í gangi, clock til þess að leikurinn væri á réttum hraða, hérna þurfti ég smá hjálp í google
     def run(self):
         clock = pygame.time.Clock()
         for x in range(3):
             self.moveEnemiesDown()
         while True:
-
             clock.tick(60)
             self.screen.fill((0,0,0))
             for event in pygame.event.get():
                 if event.type == QUIT:
+                    sys.exit()
+                if event.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
                     sys.exit()
             for enemy in self.enemies:
                 for enemy in enemy:
@@ -143,6 +148,9 @@ class SpaceInvaders:
                 self.skotUpdate()
                 self.enemyUpdate()
                 self.playerUpdate()
+            elif self.hp == 0:
+                self.screen.fill((0,0,0))
+                self.screen.blit(self.font.render('Game Over!',1,(255,0,0)),(350,300))
 
             self.screen.blit(self.font.render("HP: {}".format(self.hp), -1, (255,255,255)), (20, 10))
             pygame.display.flip()

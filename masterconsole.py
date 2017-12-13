@@ -5,6 +5,13 @@ n2 = randint(1,8)
 n3 = randint(1,8)
 n4 = randint(1,8)
 n5 = randint(1,8)
+tölur = list()
+tölur.append(n1)
+tölur.append(n2)
+tölur.append(n3)
+tölur.append(n4)
+tölur.append(n5)
+print(tölur)
 teljari = 1
 while True:
     print (n1,n2,n3,n4,n5)
@@ -29,22 +36,23 @@ while True:
         vitlaust += 1
     if gisk5 != n5:
         vitlaust += 1
+    for tala in tölur:
+        if gisk1 == tala:
+            rettar += 1
+        if gisk2 == tala:
+            rettar += 1
+        if gisk3 == tala:
+            rettar += 1
+        if gisk4 == tala:
+            rettar += 1
+        if gisk5 == tala:
+            rettar += 1
 
-    if gisk1 == n1 or n2 or n3 or n4 or n5:
-        rettar += 1
-    if gisk2 == n1 or n2 or n3 or n4 or n5:
-        rettar += 1
-    if gisk3 == n1 or n2 or n3 or n4 or n5:
-        rettar += 1
-    if gisk4 == n1 or n2 or n3 or n4 or n5:
-        rettar += 1
-    if gisk5 == n1 or n2 or n3 or n4 or n5:
-        rettar += 1
 
 
     if vitlaust == 0:
         print('Vel Gert')
-        print('Þér tókst að giska á réttu töluna úr ' + str(teljari) + ' skipti')
+        print('Það tók þig ' + str(teljari) + ' skipti að finna réttu töluna')
         break
 
     else:
